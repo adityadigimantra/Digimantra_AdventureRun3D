@@ -26,6 +26,7 @@ namespace CurvyPath
         public GameObject menuButtons;
         public GameObject dailyRewardBtn;
         public Text dailyRewardBtnText;
+        public GameObject AdsButton;
         public GameObject rewardUI;
         public GameObject settingsUI;
         public GameObject soundOnBtn;
@@ -39,7 +40,7 @@ namespace CurvyPath
         public GameObject pauseMenu;
 
         [Header("Premium Features Buttons")]
-        public GameObject watchRewardedAdBtn;
+        //public GameObject watchRewardedAdBtn;
         public GameObject leaderboardBtn;
         public GameObject achievementBtn;
         public GameObject shareBtn;
@@ -153,7 +154,8 @@ namespace CurvyPath
             playBtn.SetActive(false);
             menuButtons.SetActive(false);
             dailyRewardBtn.SetActive(true);
-            watchRewardedAdBtn.SetActive(false);
+            AdsButton.SetActive(true);
+            //watchRewardedAdBtn.SetActive(false);
 
             // Enable or disable premium stuff
             bool enablePremium = IsPremiumFeaturesEnabled();
@@ -195,7 +197,7 @@ namespace CurvyPath
             header.SetActive(true);
             title.SetActive(true);
             playBtn.SetActive(true);
-            watchRewardedAdBtn.SetActive(true);
+            //watchRewardedAdBtn.SetActive(true);
             homeButton.SetActive(false);
             restartBtn.SetActive(false);
             menuButtons.SetActive(true);
@@ -216,7 +218,8 @@ namespace CurvyPath
             playBtn.SetActive(false);
             menuButtons.SetActive(false);
             dailyRewardBtn.SetActive(false);
-            watchRewardedAdBtn.SetActive(false);
+            AdsButton.SetActive(false);
+           // watchRewardedAdBtn.SetActive(false);
             PauseButton.SetActive(true);
             for (int i=0;i<=CollectItems.Length;i++)
             {
@@ -252,8 +255,8 @@ namespace CurvyPath
             newBestScore.SetActive(ScoreManager.Instance.HasNewHighScore);
 
             playBtn.SetActive(false);
-            watchRewardedAdBtn.SetActive(false);
-            watchRewardedAdBtn.SetActive(false);
+           // watchRewardedAdBtn.SetActive(false);
+           // watchRewardedAdBtn.SetActive(false);
             restartBtn.SetActive(true);
             dailyRewardBtn.SetActive(false);
             homeButton.SetActive(true);

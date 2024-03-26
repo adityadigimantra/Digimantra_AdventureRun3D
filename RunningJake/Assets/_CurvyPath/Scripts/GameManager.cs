@@ -472,7 +472,7 @@ namespace CurvyPath
         IEnumerator PlayAds()
         {
             yield return new WaitForSeconds(0.5f);
-            FindObjectOfType<UnityAds>().ShowInterstialAd();
+            FindObjectOfType<UnityAds>().showInterstitialAds();
         }
 
         // Start a new game

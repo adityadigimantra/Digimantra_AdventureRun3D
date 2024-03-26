@@ -17,7 +17,7 @@ public class VersionControl : MonoBehaviour
     IEnumerator CheckVersion()
     {
 
-        WWW BallGame = new WWW("https://raw.githubusercontent.com/adityadigimantra/AdventureRun3D_VersionControl/main/Version%20Control");
+        WWW BallGame = new WWW("https://raw.githubusercontent.com/adityadigimantra/AdventureRun3d_VersionControl_Android/main/Version%20Control");
         yield return new WaitUntil(() => BallGame.text != "");
         string lm=BallGame.text;
         LatestVersion = lm.Substring(0, lm.Length - 1);

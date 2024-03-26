@@ -9,110 +9,206 @@ namespace CurvyPath
 {
 
 
-    public class UnityAds : MonoBehaviour
+    public class UnityAds : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
     {
-        public Button _showRewardedAdButton;
-        public GameObject BackGroundSelectionScreen;
+        public string androidGameId;
+        public string iOSGameId;
+        public bool isTestingMode = true;
+        string gameID;
 
-        
+        public string androidBannerAdsID;
+        public string androidIntersitalAdsID;
+        public string androidRewardedAdsID;
 
+        string banneradUnitId;
+        string interAdUnitId;
+        string rewardedAdUnitId;
 
-        private void Start()
+        BannerPosition bannerPosition = BannerPosition.BOTTOM_CENTER;
+        private void Awake()
         {
-            StartCoroutine(BannerAdsWhenReady());
-            Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-           
-
+            InitializeAds();
         }
 
-        public void ShowRewardedAd()
+
+        void InitializeAds()
         {
-            if (Application.platform == RuntimePlatform.Android)
+            gameID = androidGameId;
+
+            if (!Advertisement.isInitialized && Advertisement.isSupported)
             {
-               Advertisement.Show("Rewarded_Android");
-               
+                Advertisement.Initialize(gameID, isTestingMode, this);
             }
-            else
-            {
-                Advertisement.Show("Rewarded_iOS");
-            }
-            CoinManager.Instance.AddCoins(50);
+            InitializeBannerAds();
+            InitializeInterstialAds();
+            IntializeRewardedAds();
         }
 
-
-        IEnumerator BannerAdsWhenReady()
+        public void OnInitializationComplete()
         {
-            yield return new WaitForSeconds(0.5f);
-            OnBannerLoaded();
-
+            print("Ads Initialized");
         }
+
+        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+        {
+            print("Ads failed to Initialized");
+        }
+
+
+        #region BannerAds
+        public void InitializeBannerAds()
+        {
+            banneradUnitId = androidBannerAdsID;
+
+            Advertisement.Banner.SetPosition(bannerPosition);
+            LoadBannerAds();
+        }
+
         public void LoadBannerAds()
         {
-            BannerLoadOptions bannerLoadOptions = new BannerLoadOptions
+            BannerLoadOptions options = new BannerLoadOptions
             {
                 loadCallback = OnBannerLoaded,
-                errorCallback = OnBannerError
+                errorCallback = OnBannerLoadError
             };
-            Advertisement.Banner.Load("Banner_Android", bannerLoadOptions);
+
+            Advertisement.Banner.Load(banneradUnitId, options);
         }
 
-        public void OnBannerLoaded()
+        void OnBannerLoaded()
         {
-            Debug.Log("Banner Loaded");
-            Advertisement.Banner.Show("Banner_Android");
+            print("Banner Loaded");
+            ShowBannerAds();
         }
 
-        public void OnBannerError(string message)
+        void OnBannerLoadError(string error)
         {
-            Debug.Log("Banner Error:{message}");
+            print("Banner Loading failed");
         }
 
-
-        public void ShowInterstialAd()
+        public void ShowBannerAds()
         {
-            if (Application.platform == RuntimePlatform.Android)
+            BannerOptions options = new BannerOptions
             {
-                Advertisement.Show("Interstitial_Android");
-            }
-            else
+                showCallback = OnBannerShow,
+                clickCallback = OnBannerClicked,
+                hideCallback = OnBannerHidden
+            };
+            Advertisement.Banner.Show(banneradUnitId, options);
+        }
+
+        void OnBannerShow()
+        {
+
+        }
+
+        void OnBannerClicked()
+        {
+
+        }
+
+        void OnBannerHidden()
+        {
+
+        }
+
+
+        #endregion
+
+        #region InterstialAds and Rewarded Ads
+
+        public void InitializeInterstialAds()
+        {
+            interAdUnitId = androidIntersitalAdsID;
+
+            LoadInterstialAds();
+        }
+
+        public void IntializeRewardedAds()
+        {
+            rewardedAdUnitId = androidRewardedAdsID;
+
+            LoadRewardedAds();
+        }
+
+        public void LoadInterstialAds()
+        {
+            print("Loading Interstitial");
+            Advertisement.Load(interAdUnitId, this);
+        }
+
+        public void LoadRewardedAds()
+        {
+            print("Loading Rewarded Ads");
+            Advertisement.Load(rewardedAdUnitId, this);
+        }
+
+        public void showInterstitialAds()
+        {
+            print("Showing Ads");
+            Advertisement.Show(interAdUnitId, this);
+        }
+
+        public void ShowRewardedAds()
+        {
+            print("Showing Rewarded Ads");
+            Advertisement.Show(rewardedAdUnitId, this);
+        }
+
+
+        public void OnUnityAdsAdLoaded(string placementId)
+        {
+            if (placementId.Equals(interAdUnitId))
             {
-                Advertisement.Show("Interstitial_iOS");
+                print("Interstitial Ads Loaded");
             }
-        }
-
-
-
-        private void Update()
-        {
-            if (Application.platform == RuntimePlatform.Android)
+            if (placementId.Equals(rewardedAdUnitId))
             {
-                Advertisement.Initialize("5000103"); 
+                print("Rewarded Ads Loaded");
             }
-            else
+
+        }
+
+        public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+        {
+            if (placementId.Equals(interAdUnitId))
             {
-                Advertisement.Initialize("5000102");
-           
-                
+                print("Interstitial Ads failed to  Loaded");
+            }
+            if (placementId.Equals(rewardedAdUnitId))
+            {
+                print("Rewarded Ads failed to Loaded");
             }
         }
 
-        public void OnUnityAdsReady(string placementId)
+        public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
-            throw new System.NotImplementedException();
+            print("Ads Show failed");
         }
 
-        public void OnUnityAdsDidError(string message)
+        public void OnUnityAdsShowStart(string placementId)
         {
-            throw new System.NotImplementedException();
+            print("Ads Show Started");
         }
 
-        public void OnUnityAdsDidStart(string placementId)
+        public void OnUnityAdsShowClick(string placementId)
         {
-            throw new System.NotImplementedException();
+            print("Ads Show Clicked");
         }
 
-        public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+        public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
         {
+            if (placementId.Equals(interAdUnitId))
+            {
+                print("Interstitial Ads Shown Complete");
+            }
+            if (placementId.Equals(rewardedAdUnitId) && showCompletionState.Equals(UnityAdsCompletionState.COMPLETED))
+            {
+                print("Rewarded Ads Show Complete");
+                CoinManager.Instance.AddCoins(50);
+            }
         }
+
+        #endregion
     }
-}
+} 

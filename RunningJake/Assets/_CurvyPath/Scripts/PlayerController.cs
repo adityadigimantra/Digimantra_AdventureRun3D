@@ -288,21 +288,24 @@ namespace CurvyPath
                 }
 
                 //Updating Positions of Terrain
-
-                if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                if(playerClone!=null)
                 {
-                    Vector3 point3;
-                    point3 = JunglefirstTerrain.transform.position + new Vector3(0, 0, heightforJungleTerrain * 2);
-                    JunglefirstTerrain.transform.position = point3;
-                    point1.transform.position = JunglefirstTerrain.transform.position;
+                    if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                    {
+                        Vector3 point3;
+                        point3 = JunglefirstTerrain.transform.position + new Vector3(0, 0, heightforJungleTerrain * 2);
+                        JunglefirstTerrain.transform.position = point3;
+                        point1.transform.position = JunglefirstTerrain.transform.position;
+                    }
+                    if (playerClone.transform.position.z > point2.transform.position.z + 500)
+                    {
+                        Vector3 point4;
+                        point4 = JunglesecondTerrain.transform.position + new Vector3(0, 0, heightforJungleTerrain * 2);
+                        JunglesecondTerrain.transform.position = point4;
+                        point2.transform.position = JunglesecondTerrain.transform.position;
+                    }
                 }
-                if (playerClone.transform.position.z > point2.transform.position.z + 500)
-                {
-                    Vector3 point4;
-                    point4 = JunglesecondTerrain.transform.position + new Vector3(0, 0, heightforJungleTerrain * 2);
-                    JunglesecondTerrain.transform.position = point4;
-                    point2.transform.position = JunglesecondTerrain.transform.position;
-                }
+                
               //  Debug.Log("Full Condition working till last point- Track 1");
 
             }
@@ -360,22 +363,25 @@ namespace CurvyPath
 
 
                 //Updating Positions of Terrain
-
-                if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                if(playerClone!=null)
                 {
-                    Vector3 point3;
-                    point3 = VenicefirstTerrain.transform.position + new Vector3(0, 0, heightForVeniceCity * 2);
-                    VenicefirstTerrain.transform.position = point3;
-                    point1.transform.position = VenicefirstTerrain.transform.position;
+                    if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                    {
+                        Vector3 point3;
+                        point3 = VenicefirstTerrain.transform.position + new Vector3(0, 0, heightForVeniceCity * 2);
+                        VenicefirstTerrain.transform.position = point3;
+                        point1.transform.position = VenicefirstTerrain.transform.position;
+                    }
+
+                    if (playerClone.transform.position.z > point2.transform.position.z + 500)
+                    {
+                        Vector3 point4;
+                        point4 = VenicesecondTerrain.transform.position + new Vector3(0, 0, heightForVeniceCity * 2);
+                        VenicesecondTerrain.transform.position = point4;
+                        point2.transform.position = VenicesecondTerrain.transform.position;
+                    }
                 }
 
-                if (playerClone.transform.position.z > point2.transform.position.z + 500)
-                {
-                    Vector3 point4;
-                    point4 = VenicesecondTerrain.transform.position + new Vector3(0, 0, heightForVeniceCity * 2);
-                    VenicesecondTerrain.transform.position = point4;
-                    point2.transform.position = VenicesecondTerrain.transform.position;
-                }
 
                // Debug.Log("Full Condition working till last point- Track 2");
 
@@ -437,23 +443,26 @@ namespace CurvyPath
 
 
                 //Updating Positions of Terrain
-
-             if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                if(playerClone!=null)
                 {
-                    Vector3 point3;
+                    if (playerClone.transform.position.z > point1.transform.position.z + 500)
+                    {
+                        Vector3 point3;
 
-                    point3 = medievalFirstTerrain.transform.position + new Vector3(0, 0, heightforMedivalCity * 2);
-                    medievalFirstTerrain.transform.position = point3;
-                    point1.transform.position = medievalFirstTerrain.transform.position;
-                }
+                        point3 = medievalFirstTerrain.transform.position + new Vector3(0, 0, heightforMedivalCity * 2);
+                        medievalFirstTerrain.transform.position = point3;
+                        point1.transform.position = medievalFirstTerrain.transform.position;
+                    }
 
-             if (playerClone.transform.position.z > point2.transform.position.z + 500)
-                {
-                    Vector3 point4;
-                    point4 = medievalSecondTerrain.transform.position + new Vector3(0, 0, heightforMedivalCity * 2);
-                    medievalSecondTerrain.transform.position = point4;
-                    point2.transform.position = medievalSecondTerrain.transform.position;
+                    if (playerClone.transform.position.z > point2.transform.position.z + 500)
+                    {
+                        Vector3 point4;
+                        point4 = medievalSecondTerrain.transform.position + new Vector3(0, 0, heightforMedivalCity * 2);
+                        medievalSecondTerrain.transform.position = point4;
+                        point2.transform.position = medievalSecondTerrain.transform.position;
+                    }
                 }
+             
 
               //  Debug.Log("Full Condition working till last point- Track 3");
 
@@ -466,10 +475,14 @@ namespace CurvyPath
             }
 
             //Calculating Distance of Player from distance Cube.
-            float var=Vector3.Distance(playerClone.transform.position,distanceCube.transform.position);
-            int varInt = (int)var;
-           // Debug.Log("Distance Between 2 Points" + varInt);
-            distanceText.text = (varInt / 10).ToString()+ " " +"m";
+            if(playerClone!=null)
+            {
+                float var = Vector3.Distance(playerClone.transform.position, distanceCube.transform.position);
+                int varInt = (int)var;
+                // Debug.Log("Distance Between 2 Points" + varInt);
+                distanceText.text = (varInt / 10).ToString() + " " + "m";
+            }
+
 
             
 

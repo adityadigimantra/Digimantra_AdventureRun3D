@@ -88,7 +88,7 @@ namespace CurvyPath
             switch (scrollerStyle)
             {
                 case ScrollerStyle.Line:
-                    characterScrollerCamera.GetComponent<Camera>().orthographic = true;
+                    characterScrollerCamera.GetComponent<Camera>().orthographic = false;
                     break;
                 case ScrollerStyle.Circle:
                     characterScrollerCamera.GetComponent<Camera>().orthographic = false;
