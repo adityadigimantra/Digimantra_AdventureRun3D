@@ -8,9 +8,6 @@ namespace CurvyPath
     public class ObjectPoolItem
     {
         public GameObject objectToPoolChar012;
-        public GameObject objectToPoolChar345;
-        public GameObject objectToPoolChar789;
-        public GameObject objectToPoolChar101112;
         public bool shouldExpand;
         public int amountToPool;
     }

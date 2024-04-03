@@ -199,8 +199,9 @@ namespace CurvyPath
                         {
                            CreateCoin(_planePrefab.transform.position);
                         }
-                   }
-                isCreateBall = false;
+                        isCreateBall = false;
+                    }
+                //isCreateBall = false;
                 }
 
                // _planePrefab.GetComponent<MeshRenderer>().material.SetVector("_QOffsetOld", oldOffsetShader);
